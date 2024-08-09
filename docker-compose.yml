@@ -1,10 +1,27 @@
 services:
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
+    depends_on:
+      - db
+    # environment:
+    #   - DATABASE_HOST=db
+    #   - DATABASE_PORT=5432
+    #   - DATABASE_USER=admin
+    #   - DATABASE_PASSWORD=admin
+    #   - DATABASE_NAME=nest
+
   db:
     image: postgres:16.2-alpine
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=nest
+    volumes:
+      - ./data:/var/lib/postgresql/data
     ports:
       - 5432:5432
       
